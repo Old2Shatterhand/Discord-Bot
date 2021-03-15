@@ -7,6 +7,7 @@ module.exports = play = async (message) => {
     const voiceChannel = message.member.voice.channel;
     const url = message.content.split(' ')[1];
     const searcher = new YTSearcher(process.env.YOUTUBE_API);
+    let result;
 
     if (!voiceChannel)
         return message.channel.send('You need to be in a voice channel!');
@@ -26,7 +27,7 @@ module.exports = play = async (message) => {
         )
     ) {
         try {
-            let result = await searcher.search(url);
+            result = await searcher.search(url);
 
             if (voiceChannel && result) {
                 youtubePlayer(voiceChannel, message, result.first.url);
@@ -38,7 +39,7 @@ module.exports = play = async (message) => {
         }
     }
 
-    if (voiceChannel) {
+    if (voiceChannel && !result) {
         youtubePlayer(voiceChannel, message, url);
     }
 };
