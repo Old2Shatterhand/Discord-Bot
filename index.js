@@ -1,5 +1,7 @@
 const Discord = require('discord.js');
 
+const runner = require('./server.js')
+
 require('dotenv').config();
 
 const play = require('./commands/_play');
@@ -43,5 +45,7 @@ client.on('message', (message) => {
         cases(message);
     }
 });
+
+runner()
 
 client.login(process.env.TOKEN);
