@@ -1,16 +1,15 @@
+const express = require('express');
 
-const express = require('express')
-
-const server = express()
+const server = express.Router();
 
 server.all('/', (res, req) => {
-  res.send('Bot is running')
-})
+    res.send('Bot is running');
+});
 
 const runner = () => {
-  server.listen(3000, () => {
-    console.log('Ready')
-  })
-}
+    server.listen(3000, () => {
+        console.log('Ready');
+    });
+};
 
-module.exports = runner
+module.exports = runner;
