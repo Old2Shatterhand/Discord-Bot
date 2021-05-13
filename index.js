@@ -1,19 +1,16 @@
 const Discord = require('discord.js');
 
-const runner = require('./server.js')
+const runner = require('./server.js');
 
 require('dotenv').config();
 
-const play = require('./commands/_play');
-const pause = require('./commands/_pause');
-const weather = require('./commands/_weather');
-const cases = require('./commands/_cases');
-const ping = require('./commands/_ping');
-
 const client = new Discord.Client();
 
+const commands = require('./handlers/command_handler');
+const prefix = '_';
+
 client.on('ready', () => {
-    console.log(`Logged in as ${client.user.tag}`);
+	console.log(`Logged in as ${client.user.tag}`);
 });
 
 // client.on('guildMemberAdd', (member) => {
@@ -22,30 +19,33 @@ client.on('ready', () => {
 //     member.guild.channels.find(channel.id).send('Welcome');
 // });
 
-client.on('message', (message) => {
-    if (message.author.bot) return;
+client.on('message', message => {
+	if (message.author.bot || !message.content.startsWith(prefix)) return;
 
-    if (message.content === '_ping') {
-        ping(message);
-    }
+	const args = message.content.slice(prefix.length).split(/ +/);
+	const command = args.shift().toLowerCase();
 
-    if (message.content.split(' ')[0] === '_play') {
-        play(message);
-    }
+	if (command === 'ping') {
+		commands.get('ping').execute(message);
+	}
 
-    if (message.content === '_pause') {
-        pause(message);
-    }
+	if (command === 'play') {
+		commands.get('play').execute(message, args);
+	}
 
-    if (message.content.split(' ')[0] === '_weather') {
-        weather(message);
-    }
+	if (command === 'leave') {
+		commands.get('leave').execute(message);
+	}
 
-    if (message.content.split(' ')[0] === '_cases') {
-        cases(message);
-    }
+	if (command === 'weather') {
+		commands.get('weather').execute(message, args);
+	}
+
+	if (command === 'cases') {
+		commands.get('cases').execute(message, args);
+	}
 });
 
-runner()
+runner();
 
 client.login(process.env.TOKEN);
