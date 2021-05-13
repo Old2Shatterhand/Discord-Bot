@@ -20,22 +20,16 @@ module.exports = {
 		return voiceChannel
 			.join()
 			.then(connection => {
-				try {
-					const stream = ytdl(url, {
-						filter: 'audioonly',
+				const stream = ytdl(url, {
+					filter: 'audioonly',
+				});
+				connection
+					.play(stream, { seek: 0, volume: 0.5 })
+					.on('finish', () => {
+						voiceChannel.leave();
 					});
-					connection
-						.play(stream, { seek: 0, volume: 0.5 })
-						.on('finish', () => {
-							voiceChannel.leave();
-						});
-				} catch (err) {
-					message.channel.send(
-						'I could not find a video with this url 😢'
-					);
-				}
 			})
-			.catch(err => message.channel.send('I could not find this video'));
+			.catch(err => message.channel.send(err));
 	},
 	// embeddedMessage(title, fields, thumbnail, footer) {
 	//     const embed = new Discord.MessageEmbed()
