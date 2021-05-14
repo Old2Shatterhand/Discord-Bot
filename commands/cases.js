@@ -4,9 +4,9 @@ module.exports = {
 	name: 'cases',
 	description: 'Returns the current covid cases in the country given',
 	execute(message, args) {
-		const country = `${args[0].slice(0, 1).toUpperCase()}${args[0].slice(
-			1
-		)}`;
+		const country = `${args[0].slice(0, 1).toUpperCase()}${args[0]
+			.slice(1)
+			.toLowerCase()}`;
 		getData(`https://covid-api.mmediagroup.fr/v1/cases?country=${country}`)
 			.then(data =>
 				message.channel.send(`
