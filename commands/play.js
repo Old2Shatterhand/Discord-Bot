@@ -30,12 +30,10 @@ module.exports = {
 			return message.channel.send('No url or search query provided!');
 
 		if (voiceChannel && url.test(query) && yturl.test(query)) {
-			console.log(2);
 			youtubePlayer(voiceChannel, message, query);
 		}
 
 		if (voiceChannel && !url.test(query) && !yturl.test(query)) {
-			console.log(1);
 			try {
 				result = await searcher.search(query);
 
@@ -50,7 +48,6 @@ module.exports = {
 		}
 
 		if (voiceChannel && url.test(query) && !yturl.test(query)) {
-			console.log(3);
 			message.channel.send('This is not a valid YouTube URL 🤔');
 		}
 	},
