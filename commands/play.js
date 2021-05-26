@@ -6,9 +6,15 @@ const { youtubePlayer } = require('../helpers/helpers');
 module.exports = {
 	name: 'play',
 	description: 'Youtube player',
+	queue: {
+		channel: null,
+		stream: null,
+		songs: [],
+		titles: [],
+	},
 	async execute(message, args) {
 		const voiceChannel = message.member.voice.channel;
-		const searcher = new YTSearcher(process.env.YOUTUBE_API);
+		const ytsearcher = new YTSearcher(process.env.YOUTUBE_API);
 		const query = args.join(' ');
 		const url =
 			/((([A-Za-z]{3,9}:(?:\/\/)?)(?:[-;:&=\+\$,\w]+@)?[A-Za-z0-9.-]+|(?:www.|[-;:&=\+\$,\w]+@)[A-Za-z0-9.-]+)((?:\/[\+~%\/.\w-_]*)?\??(?:[-\+=&;%@.\w_]*)#?(?:[\w]*))?)/;
@@ -29,26 +35,43 @@ module.exports = {
 		if (!query)
 			return message.channel.send('No url or search query provided!');
 
-		if (voiceChannel && url.test(query) && yturl.test(query)) {
+		if (url.test(query) && yturl.test(query)) {
 			youtubePlayer(voiceChannel, message, query);
 		}
 
-		if (voiceChannel && !url.test(query) && !yturl.test(query)) {
+		if (!url.test(query) && !yturl.test(query)) {
 			try {
-				result = await searcher.search(query);
+				result = await ytsearcher.search(query);
 
-				if (voiceChannel && result) {
-					youtubePlayer(voiceChannel, message, result.first.url);
+				if (result) {
+					// Set up the server queue property
+					this.queue.channel = voiceChannel;
+					this.queue.songs.push(result.first.url);
+					this.queue.titles.push(result.first.title);
+
+					if (this.queue.songs.length === 1) {
+						youtubePlayer(
+							voiceChannel,
+							message,
+							this.queue,
+							result.first.url
+						);
+						message.channel.send(
+							`Now Playing: --${result.first.title}--`
+						);
+					} else {
+						message.channel.send('Song added to the server queue');
+					}
 				}
 			} catch (err) {
 				message.channel.send(
 					'I could not find a video with this search query 😢'
 				);
 			}
-		}
 
-		if (voiceChannel && url.test(query) && !yturl.test(query)) {
-			message.channel.send('This is not a valid YouTube URL 🤔');
+			if (url.test(query) && !yturl.test(query)) {
+				message.channel.send('This is not a valid YouTube URL 🤔');
+			}
 		}
 	},
 };

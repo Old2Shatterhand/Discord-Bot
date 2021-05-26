@@ -16,28 +16,24 @@ module.exports = {
 			.then(body => body)
 			.catch(err => console.error(err));
 	},
-	youtubePlayer(voiceChannel, message, url) {
+	youtubePlayer(voiceChannel, message, queue, url) {
 		return voiceChannel
 			.join()
 			.then(connection => {
 				const stream = ytdl(url, {
 					filter: 'audioonly',
 				});
-				connection
+				queue.stream = connection;
+
+				queue.stream
 					.play(stream, { seek: 0, volume: 0.5 })
 					.on('finish', () => {
+						// Removes the current song from the server queue
+						queue.songs.shift();
+						queue.titles.shift();
 						voiceChannel.leave();
 					});
 			})
 			.catch(err => message.channel.send(err));
 	},
-	// embeddedMessage(title, fields, thumbnail, footer) {
-	//     const embed = new Discord.MessageEmbed()
-	//         .setTitle(title)
-	//         .setTimestamp()
-	//         .addFields(fields)
-	//         .setThumbnail(thumbnail)
-	//         .setFooter(footer);
-	//     return embed;
-	// },
 };
