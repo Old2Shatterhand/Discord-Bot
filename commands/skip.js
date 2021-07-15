@@ -25,8 +25,7 @@ module.exports = {
 			return message.channel.send('The video queue is empty');
 
 		if (queue.songs.length >= 1 && queue.titles.length >= 1) {
-			youtubePlayer(voiceChannel, message, queue, queue.songs[0]);
-			message.channel.send(`Now Playing: --${queue.titles[0]}--`);
+			youtubePlayer(voiceChannel, message, queue);
 		}
 	},
 };

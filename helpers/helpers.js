@@ -16,13 +16,15 @@ module.exports = {
 			.then(body => body)
 			.catch(err => console.error(err));
 	},
-	youtubePlayer(voiceChannel, message, queue, url) {
-		return voiceChannel
-			.join()
-			.then(connection => {
-				const stream = ytdl(url, {
+	youtubePlayer(voiceChannel, message, queue) {
+		return voiceChannel.join().then(connection => {
+			for (let song of queue.songs) {
+				message.channel.send(`Now Playing: -- ${queue.titles[0]} --`);
+
+				const stream = ytdl(song, {
 					filter: 'audioonly',
 				});
+
 				queue.stream = connection;
 
 				queue.stream
@@ -31,9 +33,9 @@ module.exports = {
 						// Removes the current song from the server queue
 						queue.songs.shift();
 						queue.titles.shift();
-						voiceChannel.leave();
-					});
-			})
-			.catch(err => console.error(err));
+					})
+					.catch(err => message.channel.send(err));
+			}
+		});
 	},
 };

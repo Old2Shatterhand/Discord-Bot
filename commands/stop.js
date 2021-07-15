@@ -4,6 +4,8 @@ module.exports = {
 	name: 'stop',
 	description: 'Stops the current video',
 	execute() {
-		queue.stream.dispatcher.end();
+		if (queue.stream) {
+			queue.stream.dispatcher.end();
+		}
 	},
 };

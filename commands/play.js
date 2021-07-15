@@ -50,15 +50,7 @@ module.exports = {
 					this.queue.titles.push(result.first.title);
 
 					if (this.queue.songs.length === 1) {
-						youtubePlayer(
-							voiceChannel,
-							message,
-							this.queue,
-							result.first.url
-						);
-						message.channel.send(
-							`Now Playing: --${result.first.title}--`
-						);
+						youtubePlayer(voiceChannel, message, this.queue);
 					} else {
 						message.channel.send('Song added to the server queue');
 					}

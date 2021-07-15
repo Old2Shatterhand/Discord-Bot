@@ -1,6 +1,6 @@
 {
 	"name": "discord_bot",
-	"version": "0.0.1",
+	"version": "1.0.0",
 	"description": "A simple discord bot ",
 	"main": "index.js",
 	"dependencies": {
@@ -10,15 +10,18 @@
 		"express": "^4.17.1",
 		"ffmpeg-static": "^4.4.0",
 		"node-fetch": "^2.6.1",
-		"ytdl-core": "^4.8.2",
+		"ytdl-core": "^4.8.3",
 		"ytsearcher": "^1.2.4"
 	},
 	"devDependencies": {
-		"nodemon": "^2.0.7"
+		"nodemon": "^2.0.12"
 	},
 	"scripts": {
 		"start": "nodemon index.js"
 	},
 	"author": "Tim L",
-	"license": "MIT"
+	"license": "MIT",
+	"repository": {
+		"url": "https://github.com/Old2Shatterhand/Discord-Bot"
+	}
 }
