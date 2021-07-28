@@ -50,7 +50,8 @@ module.exports = {
 					.setThumbnail(
 						`http://openweathermap.org/img/wn/${data.weather[0].icon}.png`
 					)
-					.setFooter('Tims Bot');
+					// eslint-disable-next-line quotes
+					.setFooter("Tim's Bot");
 				return message.channel.send(embed);
 			})
 			.catch(err => message.channel.send('I cannot find this city'));

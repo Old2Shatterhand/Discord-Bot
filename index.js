@@ -21,16 +21,28 @@ client.on('message', message => {
 		commands.get('ping').execute(message);
 	}
 
+	if (command === 'help') {
+		commands.get('help').execute(message, Discord);
+	}
+
 	if (command === 'play') {
 		commands.get('play').execute(message, args);
 	}
 
-	if (command === 'stop') {
-		commands.get('stop').execute();
+	if (command === 'pause') {
+		commands.get('pause').execute();
+	}
+
+	if (command === 'resume') {
+		commands.get('resume').execute();
 	}
 
 	if (command === 'skip') {
 		commands.get('skip').execute(message);
+	}
+
+	if (command === 'volume') {
+		commands.get('volume').execute(message, args);
 	}
 
 	if (command === 'leave') {
@@ -38,7 +50,7 @@ client.on('message', message => {
 	}
 
 	if (command === 'weather') {
-		commands.get('weather').execute(message, args);
+		commands.get('weather').execute(message, args, Discord);
 	}
 
 	if (command === 'cases') {
