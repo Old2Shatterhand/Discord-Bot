@@ -41,7 +41,7 @@ module.exports = {
 			.setFooter(
 				// eslint-disable-next-line quotes
 				"Tim's Bot",
-				'https://github.com/old2shatterhand/discord-bot/blob/main/src/img/Screenshot%20(26).png'
+				'https://github.com/old2shatterhand/discord-bot/blob/c31998408ccfa2ceebfef066db1a4a30725479b2/src/img/logo.png'
 			);
 		return message.channel.send(embed);
 	},
