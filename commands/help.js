@@ -5,35 +5,41 @@ module.exports = {
 	description: 'Provides an overview of the available commands',
 	execute(message, Discord) {
 		const embed = new Discord.MessageEmbed()
-			.setTitle('HELP')
-			.setDescription(
-				`**Overview of my available functions and commands**\nThe prefix for all commands on this server: ${process.env.PREFIX}`
-			)
+			.setTitle('Functionality that I implemented with  ❤')
 			.setColor('#fff')
 			.addFields([
 				{ name: '\u200B', value: '\u200B' },
 				{
-					name: 'YouTube Player',
-					value: 'Available commands and arguments for the YouTube Player',
+					name: '***YouTube Player***',
+					value: 'To play a song simply provide a YouTube url or let me find it for you based on your keywords\nYou can create a playlist by adding multiple songs to the server queue with the play command',
 				},
 				{
-					name: 'play',
-					value: 'search query, yt url',
+					name: '`_play`',
+					value: '+ search query or yt url',
 					inline: true,
 				},
-				{ name: 'pause', value: '-', inline: true },
-				{ name: 'resume', value: '-', inline: true },
-				{ name: 'skip', value: '-', inline: true },
+				{ name: '`_pause`', value: '-', inline: true },
+				{ name: '`_resume`', value: '-', inline: true },
+				{ name: '`_skip`', value: '-', inline: true },
 				{
-					name: 'Covid-19',
+					name: '`_volume`',
+					value: '+ Floating-point number between 0 and 1',
+					inline: true,
+				},
+				{
+					name: '***Covid-19***',
 					value: 'Retrieve current covid data from a country',
 				},
-				{ name: 'cases', value: 'city', inline: true },
+				{ name: '`_cases`', value: '+ country', inline: true },
 				{
-					name: 'Weather',
+					name: '***Weather***',
 					value: 'Weather information from a city or country',
 				},
-				{ name: 'weather', value: 'city, country', inline: true },
+				{
+					name: '`_weather`',
+					value: '+ city or country',
+					inline: true,
+				},
 				{ name: '\u200B', value: '\u200B' },
 			])
 			.setThumbnail()
@@ -41,7 +47,7 @@ module.exports = {
 			.setFooter(
 				// eslint-disable-next-line quotes
 				"Tim's Bot",
-				'https://github.com/old2shatterhand/discord-bot/blob/c31998408ccfa2ceebfef066db1a4a30725479b2/src/img/logo.png'
+				'https://cdn.discordapp.com/app-icons/818627968804716544/9859b6cfdb1e3ddfd47d0b99961782d7.png'
 			);
 		return message.channel.send(embed);
 	},

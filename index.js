@@ -54,7 +54,7 @@ client.on('message', message => {
 	}
 
 	if (command === 'cases') {
-		commands.get('cases').execute(message, args);
+		commands.get('cases').execute(message, args, Discord);
 	}
 });
 

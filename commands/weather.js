@@ -47,11 +47,14 @@ module.exports = {
 							value: `${data.wind.speed} Bf`,
 						},
 					])
-					.setThumbnail(
+					.setImage(
 						`http://openweathermap.org/img/wn/${data.weather[0].icon}.png`
 					)
 					// eslint-disable-next-line quotes
-					.setFooter("Tim's Bot");
+					.setFooter(
+						"Tim's Bot",
+						'https://cdn.discordapp.com/app-icons/818627968804716544/9859b6cfdb1e3ddfd47d0b99961782d7.png'
+					);
 				return message.channel.send(embed);
 			})
 			.catch(err => message.channel.send('I cannot find this city'));
