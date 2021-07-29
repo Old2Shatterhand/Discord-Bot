@@ -2,3 +2,7 @@ package.json
 package-lock.json
 .prettierrc
 README.md
+.eslintrc
+.env
+/src
+LICENSE
